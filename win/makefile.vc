@@ -1,0 +1,54 @@
+# Makefile.vc
+
+ORATCL_VERSION = 4.6
+DLL_VERSION = 46
+
+PROJECT = oratcl$(DLL_VERSION)
+!include "rules.vc"
+
+ROOT    = .
+TMPDIR  = .
+TCL_INCLUDE = "$(TCLDIR)\include"
+MACHINE  = x64
+
+# comment the following line to compile with symbols
+NODEBUG=1
+
+CP      = copy
+RM      = del
+
+PACKAGE_NAME	= Oratcl
+PACKAGE_VERSION	= 4.6
+DLL = oratcl46.dll
+
+lflags = /NOLOGO /MACHINE:$(MACHINE) /LIBPATH:"$(TCL_LIBRARY)"
+
+DLLENTRY = @12
+dlllflags = $(lflags) -entry:_DllMainCRTStartup@12 -dll
+
+
+CLFLAGS = /c -Ob2 -favor:blend /MT /W3 /nologo -DUSE_TCL_STUBS -DPACKAGE_NAME=\"Oratcl\" -DPACKAGE_VERSION=\"4.6\"
+
+baselibs   = tclstub86.lib
+
+DIR_SRC = ..\generic
+
+SRC_FILES = $(DIR_SRC)\oratcl.c $(DIR_SRC)\oralob.c $(DIR_SRC)\oralong.c $(DIR_SRC)\oralogon.c $(DIR_SRC)\oralogoff.c $(DIR_SRC)\oraopen.c $(DIR_SRC)\oraclose.c $(DIR_SRC)\oracommit.c $(DIR_SRC)\oraroll.c $(DIR_SRC)\oraautocom.c $(DIR_SRC)\orainfo.c $(DIR_SRC)\oramsg.c $(DIR_SRC)\oraconfig.c $(DIR_SRC)\oradesc.c $(DIR_SRC)\orabreak.c $(DIR_SRC)\oraparse.c $(DIR_SRC)\orabind.c $(DIR_SRC)\oraexec.c $(DIR_SRC)\orafetch.c $(DIR_SRC)\orasql.c $(DIR_SRC)\oraplexec.c $(DIR_SRC)\orabindexec.c
+
+all: oratcl46.dll
+
+oratcl46.dll: oratcl.obj oralob.obj oralong.obj oralogon.obj oralogoff.obj oraopen.obj oraclose.obj oracommit.obj oraroll.obj oraautocom.obj orainfo.obj oramsg.obj oraconfig.obj oradesc.obj orabreak.obj oraparse.obj orabind.obj oraexec.obj orafetch.obj orasql.obj oraplexec.obj orabindexec.obj
+	link -entry:_DllMainCRTStartup -dll $(lflags) -out:$@ oratcl.obj oralob.obj oralong.obj oralogon.obj oralogoff.obj oraopen.obj oraclose.obj oracommit.obj oraroll.obj oraautocom.obj orainfo.obj oramsg.obj oraconfig.obj oradesc.obj orabreak.obj oraparse.obj orabind.obj oraexec.obj orafetch.obj orasql.obj oraplexec.obj orabindexec.obj "$(TCL_LIBRARY)\tclstub86.lib"
+
+oratcl.obj: $(SRC_FILES) 
+	cl $(CLFLAGS) /I$(TCL_INCLUDE) $(SRC_FILES) 
+
+install:  install-libraries pkgindex
+
+install-libraries: 
+	@echo Installing libraries to '$(INSTALLDIR)'
+	@if not exist "$(INSTALLDIR)" mkdir "$(INSTALLDIR)"
+	@$(CPY) $(DLL) "$(INSTALLDIR)" >NUL
+pkgindex:
+        @echo package ifneeded $(PACKAGE_NAME) $(PACKAGE_VERSION) \
+            [list load [file join $$dir $(DLL)]] >> $(INSTALLDIR)\pkgIndex.tcl
