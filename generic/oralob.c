@@ -20,13 +20,13 @@ Oralob_Init (interp)
 {
 	size_t		x;
 	int             debug = 0;
-	CONST84 char    *rx;
+	const char    *rx;
 	Tcl_Obj         *tmp1_obj;
 
 	struct tvars {
-		CONST84 char * ns;
-		CONST84 char * name;
-		CONST84 char * value;
+		const char * ns;
+		const char * name;
+		const char * value;
 	};
 
 	struct tvars tvars_list [] = {
@@ -158,7 +158,7 @@ Oralob_Init (interp)
 	};
 
 
-	CONST84 char *script[] = {
+	const char *script[] = {
 		"proc oralob {command handle args} { "
 		"	global errorInfo; "
 		"	foreach idx [list rowid table column pattern datavariable] { "
@@ -812,16 +812,16 @@ Oralob_Init (interp)
 		}
 
 		rx = Tcl_SetVar2((Tcl_Interp *) interp,
-				 (CONST char *) tvars_list[x].ns,
-				 (CONST char *) tvars_list[x].name,
-				 (CONST char *) tvars_list[x].value,
+				 (const char *) tvars_list[x].ns,
+				 (const char *) tvars_list[x].name,
+				 (const char *) tvars_list[x].value,
 				 0);
 
 		if (rx == NULL) {
 			fprintf(stderr,
 				"%sset variable '%s'",
 				"Oralob_Init(): Failed to ",
-				(CONST char *) tvars_list[x].name);
+				(const char *) tvars_list[x].name);
 				return TCL_ERROR;
 		}
 	}

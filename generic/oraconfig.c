@@ -34,13 +34,13 @@ Oratcl_Config (clientData, interp, objc, objv)
 	ClientData	clientData;
 	Tcl_Interp	*interp;
 	int		objc;
-	Tcl_Obj		*CONST objv[];
+	Tcl_Obj		*const objv[];
 {
 	OratclState	*OratclStatePtr = (OratclState *) clientData;
 	Tcl_HashEntry	*stmHashPtr;
 	OratclStms	*StmPtr;
 
-	static CONST84 char *options[] = {"longsize",
+	static const char *options[] = {"longsize",
 				   "bindsize",
 				   "nullvalue",
 				   "fetchrows",
@@ -133,7 +133,7 @@ Oratcl_Config (clientData, interp, objc, objv)
 		/* return current value of given option */
 		if (Tcl_GetIndexFromObj(interp,
 					objv[2],
-					(CONST84 char **)options,
+					(const char **)options,
 					"optionName",
 					0,
 					&option)) {
@@ -188,7 +188,7 @@ Oratcl_Config (clientData, interp, objc, objv)
 	for (i = 3; i < objc; i += 2) {
 		if (Tcl_GetIndexFromObj(interp,
 					objv[i-1],
-					(CONST84 char **)options,
+					(const char **)options,
 					"optionName",
 					0,
 					&option)) {

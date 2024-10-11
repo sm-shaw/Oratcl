@@ -191,13 +191,6 @@ typedef  oratext *string;
 # define utext  unsigned short
 #endif
 
-
-/* 
- * Const 
- */
-#undef CONST
-#define CONST const
-
 /* 
  * Misc 
  */

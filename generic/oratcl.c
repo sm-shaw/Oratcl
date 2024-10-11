@@ -40,7 +40,7 @@
 #undef  TCL_STORAGE_CLASS
 #define TCL_STORAGE_CLASS  DLLEXPORT
 
-EXTERN Oratcl_Init	_ANSI_ARGS_((Tcl_Interp *interp));
+EXTERN Oratcl_Init(Tcl_Interp *interp);
 
 BOOL APIENTRY
 DllEntryPoint(hInst, reason, reserved)
@@ -97,9 +97,9 @@ LPVOID reserved;            /* Not used. */
 
 #include "oratclExtern.h"
 
-extern int	  Oratcl_Init		_ANSI_ARGS_((Tcl_Interp	*interp));
-extern int	  Oralob_Init		_ANSI_ARGS_((Tcl_Interp	*interp));
-extern int	  Oralong_Init		_ANSI_ARGS_((Tcl_Interp	*interp));
+extern int	  Oratcl_Init(Tcl_Interp	*interp);
+extern int	  Oralob_Init(Tcl_Interp	*interp);
+extern int	  Oralong_Init(Tcl_Interp	*interp);
 
 /*
  * Definitions of the Oracle function vectors. Taken from
@@ -288,17 +288,17 @@ Oratcl_Init (interp)
 #ifdef __WIN32__
 	DWORD		last_error;
 #else							/* __WIN32__ */
-	CONST char	*native;
+	const char	*native;
 
 	Tcl_Obj		*env_obj;
-#if ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3))
+#if ((TCL_MAJOR_VERSION == 9) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3)))
 	Tcl_Obj		*tmp_obj = NULL;
 #endif
 	Tcl_Obj		*pt1_obj = NULL;
 	Tcl_Obj		*pt2_obj = NULL;
 	Tcl_Obj		*pt3_obj = NULL;
 
-#if ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3))
+#if ((TCL_MAJOR_VERSION == 9) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3)))
 	Tcl_Obj		**pathObjv;
 	int		pathObjc;
 	Tcl_Obj		*pathList;
@@ -307,12 +307,12 @@ Oratcl_Init (interp)
 	int		pathObjc;
 	Tcl_DString	result;
 #endif
-	CONST char	*ora_lib = NULL;
+	const char	*ora_lib = NULL;
 
 #endif							/* __WIN32__ */
 
 #ifdef USE_TCL_STUBS
-	if (Tcl_InitStubs(interp, "8.1", 0) == NULL) {
+	if (Tcl_InitStubs(interp, "8.6-", 0) == NULL) {
 		return TCL_ERROR;
 	}
 #endif
@@ -330,7 +330,7 @@ Oratcl_Init (interp)
 		native = ora_lib;
 	} else {
 
-#if ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3))
+#if ((TCL_MAJOR_VERSION== 9) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3)))
 		pathObjv = (Tcl_Obj **) ckalloc (3 * sizeof(*pathObjv));
 #elif ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION == 3))
 		Tcl_DStringInit(&result);
@@ -355,7 +355,7 @@ Oratcl_Init (interp)
 		Tcl_IncrRefCount(pt2_obj);
 		Tcl_IncrRefCount(pt3_obj);
 
-#if ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3))
+#if ((TCL_MAJOR_VERSION == 9) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3)))
 		pathObjv[pathObjc++] = pt1_obj;
 		pathObjv[pathObjc++] = pt2_obj;
 		pathObjv[pathObjc++] = pt3_obj;
@@ -405,7 +405,7 @@ Oratcl_Init (interp)
 		}
 
 		if (ora_lib == NULL) {
-#if ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3))
+#if ((TCL_MAJOR_VERSION == 9) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3)))
 			Tcl_DecrRefCount(tmp_obj);
 #elif ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION == 3))
 			Tcl_DStringFree(&result);
@@ -415,7 +415,7 @@ Oratcl_Init (interp)
 	}
 
 	if (ora_lib == NULL) {
-#if ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3))
+#if ((TCL_MAJOR_VERSION == 9) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION > 3)))
 		Tcl_DecrRefCount(tmp_obj);
 #elif ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION == 3))
 		Tcl_DStringFree(&result);
@@ -1131,7 +1131,7 @@ Oratcl_ColAppend (interp, StmPtr, listvar, arrayvar, hashType)
 								      (dvoid*)(pValue),
 								      StmPtr->lobpsize,
 								      (dvoid *)0,
-								      (sb4 (*)(dvoid *, CONST dvoid *, ub4, ub1)) 0,
+								      (sb4 (*)(dvoid *, const dvoid *, ub4, ub1)) 0,
 								      (ub2) 0,
 								      (ub1) SQLCS_IMPLICIT);
 
@@ -1511,7 +1511,7 @@ Oratcl_Cols (clientData, interp, objc, objv)
 	ClientData	clientData;
 	Tcl_Interp	*interp;
 	int		objc;
-	Tcl_Obj		*CONST objv[];
+	Tcl_Obj		*const objv[];
 {
 	OratclState	*OratclStatePtr = (OratclState *) clientData;
 	Tcl_HashEntry	*stmHashPtr;
@@ -1526,7 +1526,7 @@ Oratcl_Cols (clientData, interp, objc, objv)
 	int		oColslen = 6;
 	Tcl_Obj		*oResult;
 
-	static CONST84 char *options[] = {"all",
+	static const char *options[] = {"all",
 				   "name",
 				   "size",
 				   "type",
@@ -1554,7 +1554,7 @@ Oratcl_Cols (clientData, interp, objc, objv)
 	if (objc == 3) {
 		if (Tcl_GetIndexFromObj(interp,
 					objv[2],
-					(CONST84 char **)options,
+					(const char **)options,
 					"option",
 					0,
 					&mode)) {

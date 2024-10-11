@@ -22,13 +22,13 @@ Oralong_Init (interp)
 {
 	size_t		x;
 	int		debug = 0;
-	CONST84 char	*rx;
+	const char	*rx;
 	Tcl_Obj		*tmp1_obj;
 
 	struct tvars {
-		CONST84 char * ns;
-		CONST84 char * name;
-		CONST84 char * value;
+		const char * ns;
+		const char * name;
+		const char * value;
 	};
 
 	struct tvars tvars_list [] = {
@@ -70,7 +70,7 @@ Oralong_Init (interp)
 	};
 
 
-	CONST84 char *script[] = {
+	const char *script[] = {
 	        "proc oralong {command handle args} { "
 		"	global errorInfo; "
 		"	foreach idx [list rowid table column datavariable] { "
@@ -262,16 +262,16 @@ Oralong_Init (interp)
 		}
 					
 		rx = Tcl_SetVar2((Tcl_Interp *) interp,
-				 (CONST char *) tvars_list[x].ns,
-				 (CONST char *) tvars_list[x].name,
-				 (CONST char *) tvars_list[x].value,
+				 (const char *) tvars_list[x].ns,
+				 (const char *) tvars_list[x].name,
+				 (const char *) tvars_list[x].value,
 				 0); 
 
 		if (rx == NULL) {
 			fprintf(stderr,
 				"%sset variable '%s'",
 				"Oralong_Init(): Failed to ",
-				(CONST char *) tvars_list[x].name);
+				(const char *) tvars_list[x].name);
 				return TCL_ERROR;
 		}
 
@@ -314,7 +314,7 @@ Oratcl_LongRead (clientData, interp, objc, objv)
 	ClientData	clientData;
 	Tcl_Interp	*interp;
 	int		objc;
-	Tcl_Obj		*CONST objv[];
+	Tcl_Obj		*const objv[];
 {
 	OratclState	*OratclStatePtr = (OratclState *) clientData;
 	Tcl_HashEntry	*stmHashPtr;
@@ -505,7 +505,7 @@ Oratcl_LongRead (clientData, interp, objc, objv)
 					   (dvoid *) piece_data,
 					   (ub4 *) &piece_len,
 					   (ub1) piece,
-					   (CONST dvoid *) 0,		/* no indicator */
+					   (const dvoid *) 0,		/* no indicator */
 					   (ub2 *) NULL);
 
 		Oratcl_Checkerr(interp,
@@ -622,7 +622,7 @@ Oratcl_LongWrite (clientData, interp, objc, objv)
 	ClientData	clientData;
 	Tcl_Interp	*interp;
 	int		objc;
-	Tcl_Obj		*CONST objv[];
+	Tcl_Obj		*const objv[];
 {
 	OratclState	*OratclStatePtr = (OratclState *) clientData;
 	Tcl_HashEntry	*stmHashPtr;
@@ -823,7 +823,7 @@ Oratcl_LongWrite (clientData, interp, objc, objv)
 					  (dvoid *) wherebuf,
 					  (ub4 *) &pSize,
 					  (ub1) piece,
-					  (CONST dvoid *) 0,
+					  (const dvoid *) 0,
 					  (ub2 *) 0);
 
 		if (rc != OCI_SUCCESS) {
@@ -853,7 +853,7 @@ Oratcl_LongWrite (clientData, interp, objc, objv)
 				     LogPtr->errhp,
 				     (ub4) 1,
 				     (ub4) 0,
-				     (CONST OCISnapshot *) NULL,
+				     (const OCISnapshot *) NULL,
 				     (OCISnapshot *) NULL,
 				     (ub4) OCI_DEFAULT);
 

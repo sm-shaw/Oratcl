@@ -34,7 +34,7 @@ Oratcl_Message (clientData, interp, objc, objv)
 	ClientData	clientData;
 	Tcl_Interp	*interp;
 	int		objc;
-	Tcl_Obj		*CONST objv[];
+	Tcl_Obj		*const objv[];
 {
 	OratclState	*OratclStatePtr = (OratclState *) clientData;
 	Tcl_HashEntry	*logHashPtr;
@@ -49,7 +49,7 @@ Oratcl_Message (clientData, interp, objc, objv)
 	int		oColslen = 7;
 	Tcl_Obj		*oResult;
 
-	static CONST84 char *options[] = {"all",
+	static const char *options[] = {"all",
 				   "rc",
 				   "error",
 				   "rows",
@@ -79,7 +79,7 @@ Oratcl_Message (clientData, interp, objc, objv)
 	if (objc == 3) {
 		if (Tcl_GetIndexFromObj(interp,
 					objv[2],
-					(CONST84 char **)options,
+					(const char **)options,
 					"option",
 					0,
 					&mode)) {

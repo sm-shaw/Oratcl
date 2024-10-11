@@ -33,7 +33,7 @@ Oratcl_Commit (clientData, interp, objc, objv)
 	ClientData	clientData;
 	Tcl_Interp	*interp;
 	int		objc;
-	Tcl_Obj		*CONST objv[];
+	Tcl_Obj		*const objv[];
 {
 	OratclState	*OratclStatePtr = (OratclState *) clientData;
 	Tcl_HashEntry	*logHashPtr;

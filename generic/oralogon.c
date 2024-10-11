@@ -44,7 +44,7 @@ Oratcl_Logon (clientData, interp, objc, objv)
 	ClientData	clientData;
 	Tcl_Interp	*interp;
 	int		objc;
-	Tcl_Obj		*CONST objv[];
+	Tcl_Obj		*const objv[];
 {
 	OratclState	*OratclStatePtr = (OratclState *) clientData;
 	OCIFocbkStruct	failover;
@@ -207,20 +207,20 @@ Oratcl_Logon (clientData, interp, objc, objv)
 		goto common_exit;
 	}
 
-	(void) OCI_HandleAlloc( (CONST dvoid *) LogPtr->envhp,
+	(void) OCI_HandleAlloc( (const dvoid *) LogPtr->envhp,
 			       (dvoid **) (dvoid *) &LogPtr->errhp,
 			       OCI_HTYPE_ERROR,
 			       (size_t) 0,
 			       (dvoid **) 0);
 
 	/* server contexts */
-	(void) OCI_HandleAlloc( (CONST dvoid *) LogPtr->envhp,
+	(void) OCI_HandleAlloc( (const dvoid *) LogPtr->envhp,
 			       (dvoid **) (dvoid *) &LogPtr->srvhp,
 			       OCI_HTYPE_SERVER,
 			       (size_t) 0,
 			       (dvoid **) 0);
 
-	(void) OCI_HandleAlloc( (CONST dvoid *) LogPtr->envhp,
+	(void) OCI_HandleAlloc( (const dvoid *) LogPtr->envhp,
 			       (dvoid **) (dvoid *) &LogPtr->svchp,
 			       OCI_HTYPE_SVCCTX,
 			       (size_t) 0,

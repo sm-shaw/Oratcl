@@ -33,25 +33,25 @@ typedef sword (*OCIENVINIT)	(OCIEnv **envp,
 				 dvoid **usrmempp);
 extern OCIENVINIT	OCI_EnvInit;
 
-typedef sword (*OCIHANDLEALLOC)	(CONST dvoid *parenth,
+typedef sword (*OCIHANDLEALLOC)	(const dvoid *parenth,
 				 dvoid **hndlpp,
-				 CONST ub4 type,
-				 CONST size_t xtramem_sz,
+				 const ub4 type,
+				 const size_t xtramem_sz,
 				 dvoid **usrmempp); 
 extern OCIHANDLEALLOC	OCI_HandleAlloc;
 
-typedef sword (*OCIHANDLEFREE)	(dvoid *hndlp, CONST ub4 type); 
+typedef sword (*OCIHANDLEFREE)	(dvoid *hndlp, const ub4 type); 
 extern OCIHANDLEFREE	OCI_HandleFree;
 
-typedef sword  (*OCIDESCRIPTORALLOC) (CONST dvoid *parenth,
+typedef sword  (*OCIDESCRIPTORALLOC) (const dvoid *parenth,
 				      dvoid **descpp,
-				      CONST ub4 type,
-				      CONST size_t xtramem_sz,
+				      const ub4 type,
+				      const size_t xtramem_sz,
 				      dvoid **usrmempp);
 extern OCIDESCRIPTORALLOC OCI_DescriptorAlloc;
 
 typedef sword (*OCIDESCRIPTORFREE) (dvoid *descp,
-				    CONST ub4 type);
+				    const ub4 type);
 extern OCIDESCRIPTORFREE OCI_DescriptorFree;
 
 typedef sword (*OCIATTRGET)	(dvoid *trgthndlp,
@@ -72,7 +72,7 @@ extern OCIATTRSET	OCI_AttrSet;
 
 typedef sword (*OCISERVERATTACH) (OCIServer *srvhp,
 				  OCIError *errhp,
-				  CONST OraText *dblink,
+				  const OraText *dblink,
 				  sb4 dblink_len,
 				  ub4 mode); 
 extern OCISERVERATTACH	OCI_ServerAttach;
@@ -142,7 +142,7 @@ extern OCICLIENTVERSION OCI_ClientVersion;
 
 typedef sword (*OCISTMTPREPARE)	(OCIStmt *stmtp,
 				 OCIError *errhp,
-				 CONST OraText *stmt,
+				 const OraText *stmt,
 				 ub4 stmt_len,
 				 ub4 language,
 				 ub4 mode);
@@ -160,10 +160,10 @@ extern OCISTMTGETPIECEINFO	OCI_StmtGetPieceInfo;
 
 typedef sword (*OCISTMTSETPIECEINFO) (dvoid *hndlp,
 				      ub4 type, OCIError *errhp,
-				      CONST dvoid *bufp,
+				      const dvoid *bufp,
 				      ub4 *alenp,
 				      ub1 piece,
-				      CONST dvoid *indp,
+				      const dvoid *indp,
 				      ub2 *rcodep);
 extern OCISTMTSETPIECEINFO	OCI_StmtSetPieceInfo;
 
@@ -172,7 +172,7 @@ typedef sword (*OCISTMTEXECUTE)	(OCISvcCtx *svchp,
 				 OCIError *errhp,
 				 ub4 iters,
 				 ub4 rowoff,
-				 CONST OCISnapshot *snap_in,
+				 const OCISnapshot *snap_in,
 				 OCISnapshot *snap_out,
 				 ub4 mode);
 extern OCISTMTEXECUTE	OCI_StmtExecute;
@@ -206,7 +206,7 @@ extern OCIPARAMGET	OCI_ParamGet;
 typedef sword (*OCIPARAMSET)	(dvoid *hdlp,
 				 ub4 htyp,
 				 OCIError *errhp,
-				 CONST dvoid *dscp,
+				 const dvoid *dscp,
 				 ub4 dtyp,
 				 ub4 pos);
 extern OCIPARAMSET	OCI_ParamSet;
@@ -233,7 +233,7 @@ extern OCIDEFINEBYPOS	OCI_DefineByPos;
 typedef sword (*OCIBINDBYNAME)	(OCIStmt *stmtp,
 				 OCIBind **bindp,
 				 OCIError *errhp,
-				 CONST OraText *placeholder,
+				 const OraText *placeholder,
 				 sb4 placeh_len,
 				 dvoid *valuep,
 				 sb4 value_sz,
@@ -255,7 +255,7 @@ typedef sword (*OCILOBREAD) (OCISvcCtx *svchp,
 			     ub4 bufl,
                              dvoid *ctxp,
 			     sb4 (*cbfp)(dvoid *ctxp,
-					 CONST dvoid *bufp,
+					 const dvoid *bufp,
 					 ub4 len,
 					 ub1 piece),
 			     ub2 csid,

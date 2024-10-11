@@ -594,8 +594,8 @@ SHELL=${CONFIG_SHELL-/bin/sh}
 # Identity of this package.
 PACKAGE_NAME='Oratcl'
 PACKAGE_TARNAME='oratcl'
-PACKAGE_VERSION='4.6'
-PACKAGE_STRING='Oratcl 4.6'
+PACKAGE_VERSION='4.6.1'
+PACKAGE_STRING='Oratcl 4.6.1'
 PACKAGE_BUGREPORT=''
 
 # Factoring default headers for most tests.
