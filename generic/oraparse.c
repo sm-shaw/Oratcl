@@ -72,7 +72,7 @@ Oratcl_Parse (clientData, interp, objc, objv)
 	StmPtr = (OratclStms *) Tcl_GetHashValue(stmHashPtr);
 	LogPtr = (OratclLogs *) Tcl_GetHashValue(StmPtr->logHashPtr);
 
-	stmt = Tcl_GetStringFromObj(objv[2], (int *) &stln);
+	stmt = Tcl_GetStringFromObj(objv[2], (Tcl_Size *) &stln);
 	if (StmPtr->utfmode) {
 		Tcl_UtfToExternalDString(NULL, stmt, stln, &stmStr);
 	} else {
