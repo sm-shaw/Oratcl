@@ -10,7 +10,7 @@
  *
  */
 
-
+#include <tcl.h>
 #if defined(WIN32) || defined(_WIN32)
 #ifndef __WIN32__
 #define __WIN32__
@@ -99,20 +99,12 @@
 #define MINEB2MAXVAL ((eb2) 32767)
 #define MAXEB2MINVAL ((eb2)     0)
 
-
 /* 
  * Signed/Unsigned four-byte scalar (sb4/ub4/eb4) 
  */
-
-#ifndef lint 
-  typedef unsigned int ub4;
-  typedef   signed int sb4;
-  typedef          int eb4;
-#else
-# define ub4 unsigned int
-# define sb4 signed int
-# define eb4 int
-#endif
+#define ub4 Tcl_Size
+#define sb4 signed int
+#define eb4 int
 
 #define UB4MAXVAL    ((ub4)UINT_MAX)
 #define UB4MINVAL    ((ub4)       0)
